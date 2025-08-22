@@ -1,0 +1,16 @@
+# Start from Ubuntu 22.04
+FROM ubuntu:22.04
+
+# Avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install curl, openjdk, ping (from iputils-ping), and nslookup (from dnsutils)
+RUN apt-get update && apt-get install -y \
+    curl \
+    openjdk-11-jre-headless \
+    iputils-ping \
+    dnsutils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set default command to bash
+CMD ["/bin/bash"]
