@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "Inception",
+    "description": "A thief with the rare ability to enter people's dreams and steal their secrets is given a chance to have his past crimes forgiven.",
+    "year": 2010,
+    "rating": 8.8,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/inception.jpg"
+  },
+  {
+    "id": 2,
+    "title": "The Matrix",
+    "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+    "year": 1999,
+    "rating": 8.7,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/matrix.jpg"
+  },
+  {
+    "id": 3,
+    "title": "The Amazing Spider-Man",
+    "description": "Peter Parker embraces his newfound powers to face off against his father's former colleague, now transformed into the Lizard.",
+    "year": 2012,
+    "rating": 6.9,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/amazingspiderman.webp"
+  },
+  {
+    "id": 4,
+    "title": "Cinderella",
+    "description": "A kind young woman lives under the thumb of her cruel stepmother but finds her destiny with the help of a little magic.",
+    "year": 1950,
+    "rating": 7.3,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/cinderlla.webp"
+  },
+  {
+    "id": 5,
+    "title": "Fight Club",
+    "description": "An insomniac office worker and a soap maker form an underground fight club that evolves into something much more.",
+    "year": 1999,
+    "rating": 8.8,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/fightclub.webp"
+  },
+  {
+    "id": 6,
+    "title": "Gladiator",
+    "description": "A betrayed Roman general seeks revenge against the corrupt emperor who murdered his family and sent him into slavery.",
+    "year": 2000,
+    "rating": 8.5,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/gladiator.webp"
+  },
+  {
+    "id": 7,
+    "title": "How to Train Your Dragon",
+    "description": "A young Viking who aspires to hunt dragons becomes the unlikely friend of a young dragon, and together they must fight against a threat to both their worlds.",
+    "year": 2010,
+    "rating": 8.1,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/howtotrainyourdragon.webp"
+  },
+  {
+    "id": 8,
+    "title": "Lilo & Stitch",
+    "description": "A young girl adopts an unusual pet who turns out to be a notorious extraterrestrial fugitive.",
+    "year": 2002,
+    "rating": 7.3,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/lio&stitch.webp"
+  },
+  {
+    "id": 9,
+    "title": "Minecraft",
+    "description": "The untold story of a group of villagers as they set out to protect their world from an evil Ender Dragon.",
+    "year": 2023,
+    "rating": 6.8,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/minecraft.webp"
+  },
+  {
+    "id": 10,
+    "title": "Spider-Man",
+    "description": "A teenager gains spider-like superpowers and uses them to save the city from a villainous Green Goblin.",
+    "year": 2002,
+    "rating": 7.4,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/spiderman.webp"
+  },
+  {
+    "id": 11,
+    "title": "Spider-Man 3",
+    "description": "Spider-Man battles new villains and faces his darkest moments as Peter Parker struggles with the symbiote's influence.",
+    "year": 2007,
+    "rating": 6.2,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/spiderman3.webp"
+  },
+  {
+    "id": 12,
+    "title": "Train to Busan",
+    "description": "Passengers on a train struggle to survive as a zombie outbreak turns South Korea into chaos.",
+    "year": 2016,
+    "rating": 7.6,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/train%20to%20bushan.webp"
+  },
+  {
+    "id": 13,
+    "title": "Wrong Turn",
+    "description": "A group of friends are hunted by cannibalistic mountain men in the backwoods of West Virginia.",
+    "year": 2003,
+    "rating": 6.1,
+    "image_url": "https://raw.githubusercontent.com/Sivanext2011/netflix_clone/master/photos/wrongtrun.webp"
+  }
+]
