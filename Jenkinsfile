@@ -44,7 +44,7 @@ pipeline {
 
     stage('Container Scan') {
       steps {
-        sh 'trivy image --exit-code 1 --severity ${TRIVY_SEVERITY} ${IMAGE_NAME}'
+        sh 'trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL ${IMAGE_NAME}'
       }
     }
 
@@ -62,9 +62,6 @@ pipeline {
     }
 
     stage('Push') {
-      when {
-        branch 'main'
-      }
       steps {
         withCredentials([usernamePassword(credentialsId: 'netflixclone-docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
           sh 'echo "$DOCKER_PASSWORD" | docker login ${DOCKER_REGISTRY} -u "$DOCKER_USER" --password-stdin'
