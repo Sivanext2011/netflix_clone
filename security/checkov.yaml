@@ -1,0 +1,5 @@
+framework:
+  - kubernetes
+quiet: true
+compact: true
+soft-fail: false
