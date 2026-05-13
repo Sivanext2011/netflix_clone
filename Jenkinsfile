@@ -17,6 +17,12 @@ pipeline {
       }
     }
 
+    stage('Install Dependencies') {
+      steps {
+        sh 'pip install -r requirements.txt'
+      }
+    }
+
     stage('Unit Test') {
       steps {
         sh 'python -m pytest'
