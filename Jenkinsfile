@@ -7,7 +7,7 @@ pipeline {
     LATEST_IMAGE = "docker.io/sivanext/netflix_clone:latest"
     DOCKER_REGISTRY = "docker.io"
     NAMESPACE = "devsecops"
-    TRIVY_SEVERITY = "HIGH,CRITICAL"
+    TRIVY_SEVERITY = "MEDIUM,HIGH,CRITICAL"
   }
 
   stages {

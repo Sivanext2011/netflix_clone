@@ -13,14 +13,14 @@ Generated for a Python Flask service.
 
 ```bash
 docker build -t docker.io/sivanext/netflix_clone:latest .
-trivy image --severity HIGH,CRITICAL docker.io/sivanext/netflix_clone:latest
+trivy image --severity MEDIUM,HIGH,CRITICAL docker.io/sivanext/netflix_clone:latest
 kubectl create namespace devsecops
 kubectl apply -n devsecops -f k8s/
 ```
 
 ## Pipeline Gates
 
-The generated pipeline blocks builds on `HIGH,CRITICAL` findings. Adjust the gate only after agreeing on the risk policy for the target environment.
+The generated pipeline blocks builds on `MEDIUM,HIGH,CRITICAL` findings. Adjust the gate only after agreeing on the risk policy for the target environment.
 
 ## Supply Chain Additions
 
