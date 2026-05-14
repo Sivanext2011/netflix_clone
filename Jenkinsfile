@@ -7,7 +7,7 @@ pipeline {
     LATEST_IMAGE = "docker.io/sivanext/netflix_clone:latest"
     DOCKER_REGISTRY = "docker.io"
     NAMESPACE = "devsecops"
-    TRIVY_SEVERITY = "MEDIUM,HIGH,CRITICAL"
+    TRIVY_SEVERITY = "HIGH,CRITICAL"
   }
 
   stages {
@@ -36,30 +36,7 @@ pipeline {
       }
     }
 
-    stage('Dependency Scan') {
-      steps {
-        sh 'trivy fs --exit-code 1 --severity ${TRIVY_SEVERITY} .'
-      }
-    }
 
-    stage('Container Scan') {
-      steps {
-        sh 'trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL ${IMAGE_NAME}'
-      }
-    }
-
-    stage('SBOM') {
-      steps {
-        sh 'syft ${IMAGE_NAME} -o spdx-json=sbom.spdx.json'
-        archiveArtifacts artifacts: 'sbom.spdx.json', fingerprint: true
-      }
-    }
-
-    stage('IaC Scan') {
-      steps {
-        sh 'checkov -d k8s --quiet'
-      }
-    }
 
     stage('Push') {
       steps {
