@@ -37,6 +37,31 @@ pipeline {
     }
 
 
+    stage('Dependency Scan') {
+      steps {
+        sh 'trivy fs --exit-code 1 --severity ${TRIVY_SEVERITY} .'
+      }
+    }
+
+    stage('Container Scan') {
+      steps {
+        sh 'trivy image --exit-code 1 --ignore-unfixed --severity HIGH,CRITICAL ${IMAGE_NAME}'
+      }
+    }
+
+    stage('SBOM') {
+      steps {
+        sh 'syft ${IMAGE_NAME} -o spdx-json=sbom.spdx.json'
+        archiveArtifacts artifacts: 'sbom.spdx.json', fingerprint: true
+      }
+    }
+
+    stage('IaC Scan') {
+      steps {
+        sh 'checkov -d k8s --config-file .checkov.yaml --quiet'
+      }
+    }
+
 
     stage('Push') {
       steps {
@@ -49,12 +74,10 @@ pipeline {
     }
 
     stage('Deploy') {
-      when {
-        branch 'main'
-      }
       steps {
         withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
           writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
+          sh 'kubectl --kubeconfig kubeconfig.generated.yaml create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig kubeconfig.generated.yaml apply -f -'
           sh 'kubectl --kubeconfig kubeconfig.generated.yaml apply -n ${NAMESPACE} -f k8s/'
         }
       }
