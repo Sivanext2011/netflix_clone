@@ -74,9 +74,6 @@ pipeline {
     }
 
     stage('Deploy') {
-      when {
-        branch 'master'
-      }
       steps {
         withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
           writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
