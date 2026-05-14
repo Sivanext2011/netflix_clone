@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: netflixclone
+  namespace: devsecops
   labels:
     app.kubernetes.io/name: netflixclone
 spec:
@@ -14,21 +15,27 @@ spec:
       labels:
         app.kubernetes.io/name: netflixclone
     spec:
+      automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
+        runAsUser: 10001
         seccompProfile:
           type: RuntimeDefault
       containers:
         - name: netflixclone
           image: docker.io/sivanext/netflix_clone:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           envFrom:
             - configMapRef:
                 name: netflixclone-config
-            - secretRef:
-                name: netflixclone-secret
+          env:
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: netflixclone-secret
+                  key: API_TOKEN
           readinessProbe:
             httpGet:
               path: /health

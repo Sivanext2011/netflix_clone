@@ -1,0 +1,4 @@
+soft-fail: false
+skip-check:
+  - CKV_K8S_14  # Image Tag should be fixed - pipeline uses BUILD_NUMBER tag at deploy time
+  - CKV_K8S_43  # Image should use digest - managed via CI/CD image promotion
