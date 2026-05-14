@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: netflixclone-config
+data:
+  APP_NAME: "NetflixClone"
+  APP_ENV: "production"

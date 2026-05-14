@@ -1,20 +1,17 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
-
-# Set the working directory in the container
+FROM python:3.12-slim AS builder
 WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Expose the Flask port
-EXPOSE 5000
-
-# Define environment variable for Flask to run in production mode
-ENV FLASK_ENV=production
-
-# Run the Flask app when the container launches
+FROM python:3.12-slim
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+RUN useradd --create-home --shell /usr/sbin/nologin appuser
+COPY --from=builder /install /usr/local
+COPY . .
+USER appuser
+EXPOSE 8000
 CMD ["python", "app.py"]
