@@ -50,9 +50,15 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        withCredentials([file(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_FILE')]) {
-          sh 'kubectl --kubeconfig $KUBECONFIG_FILE create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig $KUBECONFIG_FILE apply --validate=false -f -'
-          sh 'kubectl --kubeconfig $KUBECONFIG_FILE apply -n ${NAMESPACE} -f k8s/generated/'
+        withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+          sh '''
+            set +x
+            printenv KUBECONFIG_CONTENT > kubeconfig.generated.yaml
+            set -x
+            kubectl --kubeconfig kubeconfig.generated.yaml create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig kubeconfig.generated.yaml apply --validate=false -f -
+            kubectl --kubeconfig kubeconfig.generated.yaml apply -n ${NAMESPACE} -f k8s/generated/
+            rm -f kubeconfig.generated.yaml
+          '''
         }
       }
     }
