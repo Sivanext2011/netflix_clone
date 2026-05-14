@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: netflixclone
-  namespace: prod
+  namespace: devsecops
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:

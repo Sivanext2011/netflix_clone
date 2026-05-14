@@ -14,8 +14,8 @@ Generated for a Python Flask service.
 ```bash
 docker build -t docker.io/sivanext/netflix_clone:latest .
 trivy image --severity HIGH,CRITICAL docker.io/sivanext/netflix_clone:latest
-kubectl create namespace prod
-kubectl apply -n prod -f k8s/
+kubectl create namespace devsecops
+kubectl apply -n devsecops -f k8s/
 ```
 
 ## Pipeline Gates
