@@ -6,7 +6,7 @@ pipeline {
     IMAGE_NAME = "docker.io/sivanext/netflix_clone:${BUILD_NUMBER}"
     LATEST_IMAGE = "docker.io/sivanext/netflix_clone:latest"
     DOCKER_REGISTRY = "docker.io"
-    NAMESPACE = "devsecops"
+    NAMESPACE = "prod"
     TRIVY_SEVERITY = "HIGH,CRITICAL"
   }
 
