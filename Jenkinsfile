@@ -8,7 +8,6 @@ pipeline {
     DOCKER_REGISTRY = "docker.io"
     NAMESPACE = "devsecops"
     TRIVY_SEVERITY = "HIGH,CRITICAL"
-    KUBECONFIG = "/var/jenkins_home/.kube/config"
   }
 
   stages {
@@ -51,8 +50,12 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply --validate=false -f -'
-        sh 'kubectl apply -n ${NAMESPACE} -f k8s/generated/'
+        withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+          writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
+          sh 'kubectl --kubeconfig kubeconfig.generated.yaml create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig kubeconfig.generated.yaml apply --validate=false -f -'
+          sh 'kubectl --kubeconfig kubeconfig.generated.yaml apply -n ${NAMESPACE} -f k8s/generated/'
+          sh 'rm -f kubeconfig.generated.yaml'
+        }
       }
     }
   }
