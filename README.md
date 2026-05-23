@@ -12,8 +12,8 @@ Generated for a Python Flask service.
 ## Quick Start
 
 ```bash
-docker build -t https://hub.docker.com/repositories/sivanext/netflixClone:latest .
-trivy image --severity MEDIUM,HIGH,CRITICAL https://hub.docker.com/repositories/sivanext/netflixClone:latest
+docker build -t docker.io/sivanext/netflixclone:latest .
+trivy image --severity MEDIUM,HIGH,CRITICAL docker.io/sivanext/netflixclone:latest
 kubectl create namespace devsecops
 kubectl apply -n devsecops -f k8s/
 ```

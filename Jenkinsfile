@@ -28,9 +28,9 @@ spec:
   }
 
   environment {
-    IMAGE_NAME = "https://hub.docker.com/repositories/sivanext/netflixClone:${BUILD_NUMBER}"
-    LATEST_IMAGE = "https://hub.docker.com/repositories/sivanext/netflixClone:latest"
-    DOCKER_REGISTRY = "https:"
+    IMAGE_NAME = "docker.io/sivanext/netflixclone:${BUILD_NUMBER}"
+    LATEST_IMAGE = "docker.io/sivanext/netflixclone:latest"
+    DOCKER_REGISTRY = "docker.io"
     NAMESPACE = "devsecops"
     TRIVY_SEVERITY = "MEDIUM,HIGH,CRITICAL"
   }
@@ -66,7 +66,7 @@ spec:
               mkdir -p /kaniko/.docker
               echo "{\"auths\":{\"${DOCKER_REGISTRY}\":{\"username\":\"${DOCKER_USER}\",\"password\":\"${DOCKER_PASSWORD}\"}}}" > /kaniko/.docker/config.json
             '''
-            sh "/kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=${IMAGE_NAME} --destination=${LATEST_IMAGE}"
+            sh '/kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=${IMAGE_NAME} --destination=${LATEST_IMAGE}'
           }
         }
       }
