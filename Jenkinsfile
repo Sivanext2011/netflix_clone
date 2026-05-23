@@ -31,6 +31,7 @@ spec:
     IMAGE_NAME = "docker.io/sivanext/netflixclone:${BUILD_NUMBER}"
     LATEST_IMAGE = "docker.io/sivanext/netflixclone:latest"
     DOCKER_REGISTRY = "docker.io"
+    DOCKER_AUTH_REGISTRY = "https://index.docker.io/v1/"
     NAMESPACE = "devsecops"
     TRIVY_SEVERITY = "MEDIUM,HIGH,CRITICAL"
   }
@@ -65,7 +66,7 @@ spec:
             sh '''
               mkdir -p /kaniko/.docker
               cat > /kaniko/.docker/config.json <<EOF
-{"auths":{"${DOCKER_REGISTRY}":{"username":"${DOCKER_USER}","password":"${DOCKER_PASSWORD}"}}}
+{"auths":{"${DOCKER_AUTH_REGISTRY}":{"username":"${DOCKER_USER}","password":"${DOCKER_PASSWORD}"}}}
 EOF
             '''
             sh '/kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=${IMAGE_NAME} --destination=${LATEST_IMAGE}'
