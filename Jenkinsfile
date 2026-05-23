@@ -20,6 +20,10 @@ spec:
     image: python:3.12-slim
     command: ["sleep"]
     args: ["infinity"]
+  - name: kubectl
+    image: bitnami/kubectl:1.30
+    command: ["sleep"]
+    args: ["infinity"]
   volumes:
   - name: docker-config
     emptyDir: {}
@@ -79,7 +83,7 @@ EOF
 
     stage('Deploy') {
       steps {
-        container('tools') {
+        container('kubectl') {
           withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
             writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
             sh 'kubectl --kubeconfig kubeconfig.generated.yaml create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig kubeconfig.generated.yaml apply --validate=false -f -'
