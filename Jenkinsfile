@@ -64,7 +64,9 @@ spec:
           withCredentials([usernamePassword(credentialsId: 'netflixclone-docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh '''
               mkdir -p /kaniko/.docker
-              echo "{\"auths\":{\"${DOCKER_REGISTRY}\":{\"username\":\"${DOCKER_USER}\",\"password\":\"${DOCKER_PASSWORD}\"}}}" > /kaniko/.docker/config.json
+              cat > /kaniko/.docker/config.json <<EOF
+{"auths":{"${DOCKER_REGISTRY}":{"username":"${DOCKER_USER}","password":"${DOCKER_PASSWORD}"}}}
+EOF
             '''
             sh '/kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=${IMAGE_NAME} --destination=${LATEST_IMAGE}'
           }
