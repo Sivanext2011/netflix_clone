@@ -17,7 +17,7 @@ spec:
     - name: docker-config
       mountPath: /kaniko/.docker
   - name: tools
-    image: alpine:3.20
+    image: python:3.12-slim
     command: ["sleep"]
     args: ["infinity"]
   volumes:
