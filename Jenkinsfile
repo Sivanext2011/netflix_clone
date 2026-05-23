@@ -85,18 +85,13 @@ EOF
       steps {
         container('kubectl') {
           timeout(time: 3, unit: 'MINUTES') {
-            withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
-              writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
-              sh '''
-                set -eux
-                trap 'rm -f kubeconfig.generated.yaml' EXIT
-                apk add --no-cache kubectl
-                kubectl version --client=true
-                kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s config current-context
-                kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s get namespace ${NAMESPACE} || kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s create namespace ${NAMESPACE}
-                kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s apply -n ${NAMESPACE} --validate=false -f k8s/generated/
-              '''
-            }
+            sh '''
+              set -eux
+              apk add --no-cache kubectl
+              kubectl version --client=true
+              kubectl --request-timeout=30s get namespace ${NAMESPACE} || kubectl --request-timeout=30s create namespace ${NAMESPACE}
+              kubectl --request-timeout=30s apply -n ${NAMESPACE} --validate=false -f k8s/generated/
+            '''
           }
         }
       }
