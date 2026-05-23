@@ -21,7 +21,7 @@ spec:
     command: ["sleep"]
     args: ["infinity"]
   - name: kubectl
-    image: bitnami/kubectl:latest
+    image: alpine:3.20
     command: ["sleep"]
     args: ["infinity"]
   volumes:
@@ -90,6 +90,7 @@ EOF
               sh '''
                 set -eux
                 trap 'rm -f kubeconfig.generated.yaml' EXIT
+                apk add --no-cache kubectl
                 kubectl version --client=true
                 kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s config current-context
                 kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s get namespace ${NAMESPACE} || kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s create namespace ${NAMESPACE}
