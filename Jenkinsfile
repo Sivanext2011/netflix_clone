@@ -86,9 +86,14 @@ EOF
         container('kubectl') {
           withCredentials([string(credentialsId: 'netflixclone-kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
             writeFile file: 'kubeconfig.generated.yaml', text: KUBECONFIG_CONTENT
-            sh 'kubectl --kubeconfig kubeconfig.generated.yaml create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl --kubeconfig kubeconfig.generated.yaml apply --validate=false -f -'
-            sh 'kubectl --kubeconfig kubeconfig.generated.yaml apply -n ${NAMESPACE} -f k8s/generated/'
-            sh 'rm -f kubeconfig.generated.yaml'
+            sh '''
+              set -eu
+              trap 'rm -f kubeconfig.generated.yaml' EXIT
+              kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s version --client
+              kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s config current-context
+              kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s get namespace ${NAMESPACE} >/dev/null 2>&1 || kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s create namespace ${NAMESPACE}
+              kubectl --kubeconfig kubeconfig.generated.yaml --request-timeout=30s apply -n ${NAMESPACE} --validate=false -f k8s/generated/
+            '''
           }
         }
       }
