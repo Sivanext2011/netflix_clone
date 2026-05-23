@@ -22,9 +22,7 @@ spec:
     args: ["infinity"]
   volumes:
   - name: docker-config
-    secret:
-      secretName: netflixclone-docker-config
-      optional: true
+    emptyDir: {}
 '''
     }
   }
