@@ -13,5 +13,5 @@ RUN useradd --create-home --shell /usr/sbin/nologin appuser
 COPY --from=builder /install /usr/local
 COPY . .
 USER appuser
-EXPOSE 5000
+EXPOSE 8000
 CMD ["python", "app.py"]

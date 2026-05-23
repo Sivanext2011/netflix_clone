@@ -13,7 +13,7 @@ spec:
   ingress:
     - ports:
         - protocol: TCP
-          port: 5000
+          port: 8000
   egress:
     - to:
         - namespaceSelector: {}

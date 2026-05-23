@@ -4,5 +4,5 @@ metadata:
   name: netflixclone-config
   namespace: devsecops
 data:
-  APP_NAME: "NetflixClone"
+  APP_NAME: "netflixClone"
   APP_ENV: "production"
