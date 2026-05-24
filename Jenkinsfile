@@ -6,6 +6,8 @@ pipeline {
 apiVersion: v1
 kind: Pod
 spec:
+  serviceAccountName: default
+  automountServiceAccountToken: true
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
@@ -87,10 +89,16 @@ EOF
           timeout(time: 3, unit: 'MINUTES') {
             sh '''
               set -eux
+              trap 'rm -f kubeconfig.incluster.yaml' EXIT
               apk add --no-cache kubectl
-              kubectl version --client=true
-              kubectl --request-timeout=30s get namespace ${NAMESPACE} || kubectl --request-timeout=30s create namespace ${NAMESPACE}
-              kubectl --request-timeout=30s apply -n ${NAMESPACE} --validate=false -f k8s/generated/
+              SA_DIR=/var/run/secrets/kubernetes.io/serviceaccount
+              kubectl config --kubeconfig kubeconfig.incluster.yaml set-cluster in-cluster --server=https://kubernetes.default.svc --certificate-authority=${SA_DIR}/ca.crt --embed-certs=true
+              kubectl config --kubeconfig kubeconfig.incluster.yaml set-credentials jenkins-agent --token="$(cat ${SA_DIR}/token)"
+              kubectl config --kubeconfig kubeconfig.incluster.yaml set-context in-cluster --cluster=in-cluster --user=jenkins-agent
+              kubectl config --kubeconfig kubeconfig.incluster.yaml use-context in-cluster
+              kubectl --kubeconfig kubeconfig.incluster.yaml version --client=true
+              kubectl --kubeconfig kubeconfig.incluster.yaml --request-timeout=30s get namespace ${NAMESPACE} || kubectl --kubeconfig kubeconfig.incluster.yaml --request-timeout=30s create namespace ${NAMESPACE}
+              kubectl --kubeconfig kubeconfig.incluster.yaml --request-timeout=30s apply -n ${NAMESPACE} --validate=false -f k8s/generated/
             '''
           }
         }
