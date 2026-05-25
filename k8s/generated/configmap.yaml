@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: netflixclone-config
+  name: payments-api-config
   namespace: devsecops
 data:
-  APP_NAME: "netflixClone"
+  APP_NAME: "payments-api"
   APP_ENV: "production"

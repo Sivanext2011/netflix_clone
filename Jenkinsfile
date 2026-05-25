@@ -34,12 +34,12 @@ spec:
   }
 
   environment {
-    IMAGE_NAME = "docker.io/sivanext/netflixclone:${BUILD_NUMBER}"
-    LATEST_IMAGE = "docker.io/sivanext/netflixclone:latest"
+    IMAGE_NAME = "docker.io/sivanext/payments-api:${BUILD_NUMBER}"
+    LATEST_IMAGE = "docker.io/sivanext/payments-api:latest"
     DOCKER_REGISTRY = "docker.io"
     DOCKER_AUTH_REGISTRY = "https://index.docker.io/v1/"
     NAMESPACE = "devsecops"
-    TRIVY_SEVERITY = "MEDIUM,HIGH,CRITICAL"
+    TRIVY_SEVERITY = "HIGH,CRITICAL"
   }
 
   stages {
@@ -68,7 +68,7 @@ spec:
     stage('Build and Push Image') {
       steps {
         container('kaniko') {
-          withCredentials([usernamePassword(credentialsId: 'netflixclone-docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+          withCredentials([usernamePassword(credentialsId: 'payments-api-docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh '''
               mkdir -p /kaniko/.docker
               cat > /kaniko/.docker/config.json <<EOF

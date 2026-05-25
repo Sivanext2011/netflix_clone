@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: netflixclone-default
+  name: payments-api-default
   namespace: devsecops
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: netflixclone
+      app.kubernetes.io/name: payments-api
   policyTypes:
     - Ingress
     - Egress

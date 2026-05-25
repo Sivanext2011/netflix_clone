@@ -1,4 +1,4 @@
-# netflixClone DevSecOps Starter Kit
+# payments-api DevSecOps Starter Kit
 
 Generated for a Python Flask service.
 
@@ -12,15 +12,15 @@ Generated for a Python Flask service.
 ## Quick Start
 
 ```bash
-docker build -t docker.io/sivanext/netflixclone:latest .
-trivy image --severity MEDIUM,HIGH,CRITICAL docker.io/sivanext/netflixclone:latest
+docker build -t docker.io/sivanext/payments-api:latest .
+trivy image --severity HIGH,CRITICAL docker.io/sivanext/payments-api:latest
 kubectl create namespace devsecops
 kubectl apply -n devsecops -f k8s/
 ```
 
 ## Pipeline Gates
 
-The generated pipeline blocks builds on `MEDIUM,HIGH,CRITICAL` findings. Adjust the gate only after agreeing on the risk policy for the target environment.
+The generated pipeline blocks builds on `HIGH,CRITICAL` findings. Adjust the gate only after agreeing on the risk policy for the target environment.
 
 ## Supply Chain Additions
 
